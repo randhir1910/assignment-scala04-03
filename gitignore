@@ -22,7 +22,7 @@ project/plugins/project/
 *.bak
 *.swp
 .worksheet
-application.conf
+*.conf
 # IntelliJ Specific
 .idea/
 *.iml
@@ -31,5 +31,4 @@ projectFilesBackup
 
 metastore_db/
 check*/
-
-assignment-scala04-03/src/main/resources/application.conf
+src/main/resources/application.conf
