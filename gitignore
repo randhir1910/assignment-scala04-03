@@ -32,4 +32,4 @@ projectFilesBackup
 metastore_db/
 check*/
 
-/home/knoldus/IdeaProjects/assignment-scala04-03/src/main/resources
+assignment-scala04-03/src/main/resources/application.conf
