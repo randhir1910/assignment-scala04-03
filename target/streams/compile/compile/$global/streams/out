@@ -1,4 +1,6 @@
-[0m[[0m[31merror[0m] [0m[0m/home/knoldus/IdeaProjects/assignment-scala04-03/src/main/scala/TwitterData.scala:13:15: value foreach is not a member of twitter4j.ResponseList[twitter4j.Status][0m
-[0m[[0m[31merror[0m] [0m[0m  for(data <- statuses)[0m
-[0m[[0m[31merror[0m] [0m[0m              ^[0m
+[0m[[0m[31merror[0m] [0m[0m/home/knoldus/IdeaProjects/assignment-scala04-03/src/main/scala/com/knoldus/twitter/TwitterInfo.scala:24:3: type mismatch;[0m
+[0m[[0m[31merror[0m] [0m[0m found   : Unit[0m
+[0m[[0m[31merror[0m] [0m[0m required: Int[0m
+[0m[[0m[31merror[0m] [0m[0m  }[0m
+[0m[[0m[31merror[0m] [0m[0m  ^[0m
 [0m[[0m[31merror[0m] [0m[0mone error found[0m
