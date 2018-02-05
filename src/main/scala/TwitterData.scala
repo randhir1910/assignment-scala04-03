@@ -26,7 +26,6 @@ object TwitterData extends App {
   val TwitterInfoList = List(TotalTweet, AverageTweet, AverageLike, AverageReTweet)
 
   val TwitterInfo = Future.sequence(TwitterInfoList)
-
   Printer.info("\n")
 
   TwitterInfoList(0) andThen {
@@ -34,6 +33,7 @@ object TwitterData extends App {
     case Success(result) => Printer.info("Total Tweets " + result + "\n")
     case Failure(exception) => Printer.info(exception)
   }
+
 
   TwitterInfoList(1) andThen {
 

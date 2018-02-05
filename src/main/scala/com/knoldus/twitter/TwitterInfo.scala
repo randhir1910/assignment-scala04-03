@@ -32,42 +32,31 @@ class TwitterInfo {
 
   }
 
-  def getTotalTweets(hashTag: String): Future[Int] = {
+  def getTotalTweets(hashTag: String): Future[Int] = Future {
 
     val tweets = new TwitterInfo().tweets(hashTag)
-
-    Future {
-      tweets.size
-    }
+    tweets.size
 
   }
 
-  def getAverageTweets(hashTag: String): Future[Double] = {
+  def getAverageTweets(hashTag: String): Future[Double] = Future {
 
     val tweets = new TwitterInfo().tweets(hashTag)
+    tweets.size / 31.0
 
-    Future {
-      tweets.size / 31.0
-    }
   }
 
-  def getAverageLikeCount(hashTag: String): Future[Double] = {
+  def getAverageLikeCount(hashTag: String): Future[Double] = Future {
 
     val tweets = new TwitterInfo().tweets(hashTag).map(tweet => tweet.getFavoriteCount).sum
-
-    Future {
-      tweets / 31.0
-    }
+    tweets / 31.0
 
   }
 
-  def getAverageReTweetCount(hashTag: String): Future[Double] = {
+  def getAverageReTweetCount(hashTag: String): Future[Double] = Future {
 
     val tweets = new TwitterInfo().tweets(hashTag).map(tweet => tweet.getRetweetCount).sum
-
-    Future {
-      tweets / 31.0
-    }
+    tweets / 31.0
 
   }
 }
