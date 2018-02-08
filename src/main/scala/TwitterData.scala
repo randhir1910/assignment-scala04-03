@@ -1,56 +1,59 @@
 import com.knoldus.config.ConfigInfo
-import com.knoldus.twitter.TwitterInfo
+import com.knoldus.constant.Const
+import com.knoldus.twitter.TwitterInformation
 import org.apache.log4j.Logger
 import twitter4j.TwitterFactory
 import twitter4j.auth.AccessToken
 
 import scala.concurrent.ExecutionContext.Implicits.global
-import scala.concurrent.Future
 import scala.util.{Failure, Success}
 
-object TwitterData extends App {
 
-  val Twitter = new TwitterFactory().getInstance()
-  Twitter.setOAuthConsumer(ConfigInfo.ConsumerKey, ConfigInfo.ConsumerSecret)
-  Twitter.setOAuthAccessToken(new AccessToken(ConfigInfo.AccessToken, ConfigInfo.AccessTokenSecret))
-  val Printer = Logger.getLogger(this.getClass)
+object TwitterData {
 
-  val TwitterData = new TwitterInfo
-  Printer.info(" Enter HashTag to get information :- ")
-  val HashTag = readLine()
+  def main(args: Array[String]): Unit = {
 
-  val TotalTweet = TwitterData.getTotalTweets(HashTag)
-  val AverageTweet = TwitterData.getAverageTweets(HashTag)
-  val AverageLike = TwitterData.getAverageLikeCount(HashTag)
-  val AverageReTweet = TwitterData.getAverageReTweetCount(HashTag)
-  val TwitterInfoList = List(TotalTweet, AverageTweet, AverageLike, AverageReTweet)
+    val twitter = new TwitterFactory().getInstance()
+    twitter.setOAuthConsumer(ConfigInfo.ConsumerKey, ConfigInfo.ConsumerSecret)
+    twitter.setOAuthAccessToken(new AccessToken(ConfigInfo.AccessToken, ConfigInfo.AccessTokenSecret))
+    val logger = Logger.getLogger(this.getClass)
 
-  val TwitterInfo = Future.sequence(TwitterInfoList)
-  Printer.info("\n")
+    val twitterData = new TwitterInformation
+    logger.info(" Enter HashTag to get Tweet information :- ")
+    val hashTag = readLine()
 
-  TwitterInfoList(0) andThen {
+    val totalTweet = twitterData.getTotalTweets(hashTag)
+    val averageTweet = twitterData.getAverageTweets(hashTag)
+    val averageLike = twitterData.getAverageLikeCount(hashTag)
+    val averageReTweet = twitterData.getAverageReTweetCount(hashTag)
 
-    case Success(result) => Printer.info("Total Tweets " + result + "\n")
-    case Failure(exception) => Printer.info(exception)
+    logger.info("\n")
+
+    Thread.sleep(Const.TenThousand)
+
+    totalTweet andThen {
+
+      case Success(result) => logger.info("Total Tweets " + result + "\n")
+      case Failure(exception) => logger.info(exception)
+    }
+
+    averageTweet andThen {
+
+      case Success(result) => logger.info("Average Tweets per day " + result + "\n")
+      case Failure(exception) => logger.info(exception)
+    }
+
+    averageLike andThen {
+
+      case Success(result) => logger.info("Average Like  per day   " + result + "\n")
+      case Failure(exception) => logger.info(exception)
+    }
+
+    averageReTweet andThen {
+
+      case Success(result) => logger.info("Average ReTweet per day " + result + "\n")
+      case Failure(exception) => logger.info(exception)
+    }
+
   }
-
-
-  TwitterInfoList(1) andThen {
-
-    case Success(result) => Printer.info("Average Tweets " + result + "\n")
-    case Failure(exception) => Printer.info(exception)
-  }
-
-  TwitterInfoList(2) andThen {
-
-    case Success(result) => Printer.info("Average Tweets Like  " + result + "\n")
-    case Failure(exception) => Printer.info(exception)
-  }
-
-  TwitterInfoList(3) andThen {
-
-    case Success(result) => Printer.info("Average ReTweet Count " + result + "\n")
-    case Failure(exception) => Printer.info(exception)
-  }
-
 }
