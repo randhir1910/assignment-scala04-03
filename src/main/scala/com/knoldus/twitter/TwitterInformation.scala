@@ -18,7 +18,7 @@ class TwitterInformation {
   /**
     * methods to get information from #Randhir twitter.
     *
-    * @param hashTag
+    * @param  hashTag
     * @return twitter information
     */
   private def tweets(hashTag: String): List[Status] = {
@@ -37,18 +37,16 @@ class TwitterInformation {
 
   }
 
-  def getTotalTweets(hashTag: String): Future[Int] = Future {
+  def getTotalTweets(hashTag: String): Future[List[String]] = Future {
 
-    val tweet = tweets(hashTag)
-    tweet.size
-
+    tweets(hashTag).map(status => status.getText)
   }
 
   def getAverageTweets(hashTag: String): Future[Double] = Future {
 
     val tweet = tweets(hashTag)
     tweet.size / 31.0
-
+    // tweet.map(tweets => tweets.getCreatedAt).length / 31.0
   }
 
   def getAverageLikeCount(hashTag: String): Future[Double] = Future {

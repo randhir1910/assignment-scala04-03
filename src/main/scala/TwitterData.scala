@@ -1,5 +1,4 @@
 import com.knoldus.config.ConfigInfo
-import com.knoldus.constant.Const
 import com.knoldus.twitter.TwitterInformation
 import org.apache.log4j.Logger
 import twitter4j.TwitterFactory
@@ -29,7 +28,7 @@ object TwitterData {
 
     logger.info("\n")
 
-    Thread.sleep(Const.TenThousand)
+    Thread.sleep(10000)
 
     totalTweet andThen {
 
